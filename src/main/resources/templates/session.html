@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/session.css}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"
+        integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Session</title>
 </head>
-<body>
-    <h1>Your Sesion ID:</h1> <br>
-    <h2 th:text="${pin}"></h2>
 
+<body>
+
+    <a href="/close">Close Session</a>
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="booth">
-                            <video id="video" width="50%" 
-                                height="50%" autoplay>
+                            <video id="video" width="50%" height="50%" autoplay>
+                                <img src="" alt="" id="image">
                             </video>
                         </div>
-  
+
                         <div class="text-right">
-                            <a href="#!" class="btn btn-danger" 
-                                onClick="stop()">
+                            <a href="#!" class="btn btn-danger" onClick="stop()">
                                 Stop Cam
                             </a>
-                            <a href="#!" class="btn btn-success"
-                                onClick="start()">
+                            <a href="#!" class="btn btn-success" onClick="start()">
                                 Start Cam
                             </a>
                         </div>
@@ -39,7 +41,10 @@
     </div>
 
     <script>
+
+        var socket = io.connect("http://localhost:8080");
         var stop = function () {
+            var image = document.getElementById('image')
             var stream = video.srcObject;
             var tracks = stream.getTracks();
             for (var i = 0; i < tracks.length; i++) {
@@ -47,10 +52,15 @@
                 track.stop();
             }
             video.srcObject = null;
+            //set the image source to a blank image
+            image.src = "https://suitabletech.com/images/HelpCenter/errors/Lenovo-Camera-Error.JPG";
         }
         var start = function () {
             var video = document.getElementById('video'),
                 vendorUrl = window.URL || window.webkitURL;
+            var image = document.getElementById('image')
+            image.src = "";
+
             if (navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true })
                     .then(function (stream) {
@@ -60,9 +70,24 @@
                     });
             }
         }
-    
-            start();
-   
+
+        socket.on("connection", (socket) => {
+            socket.on("hello", (arg) => {
+                console.log(arg); // world
+            });
+        });
+
+        start();
+
     </script>
+
+
+    <div class="footer">
+        <h2>Your Sesion ID:</h2>
+        <h2 th:text="${pin}"></h2>
+        <h4> Want to make this message disappear? Get a friend to join a session, once they do this message will
+            dissapear </h4>
+    </div>
 </body>
+
 </html>

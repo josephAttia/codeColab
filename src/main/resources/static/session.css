@@ -1,4 +1,15 @@
 video{
     /* add border */
     border: 1px solid #000;
+    width: 25%;
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+  }
