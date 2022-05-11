@@ -9,10 +9,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"
         integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://codemirror.net/lib/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.0/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.0/addon/selection/active-line.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.css"
+        integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js"
+        integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js"
+        integrity="sha512-6ts6Fu561/yzWvD6uwQp3XVYwiWNpWnZ0hdeQrETqtnQiGjTfOS06W76aUDnq51hl1SxXtJaqy7IsZ3oP/uZEg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <title>Session</title>
 </head>
 
 <body>
+
 
     <a href="/close">Close Session</a>
     <div class="container">
@@ -40,9 +58,41 @@
         </div>
     </div>
 
+
+    <div id="editor">
+        public class Main{
+        public static void main (String[] args){
+        System.out.println("Hello World");
+        }
+        }
+
+
+    </div>
+
+
+
     <script>
 
-        var socket = io.connect("http://localhost:8080");
+
+        var sock = new SockJS('localhost:8080/session');
+        sock.onopen = function () {
+            console.log('open');
+            sock.send('test');
+        };
+
+        sock.onmessage = function (e) {
+            console.log('message', e.data);
+            sock.close();
+        };
+
+        sock.onclose = function () {
+            console.log('close');
+        };
+
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/java");
+
         var stop = function () {
             var image = document.getElementById('image')
             var stream = video.srcObject;
@@ -70,13 +120,6 @@
                     });
             }
         }
-
-        socket.on("connection", (socket) => {
-            socket.on("hello", (arg) => {
-                console.log(arg); // world
-            });
-        });
-
         start();
 
     </script>

@@ -1,12 +1,12 @@
 package com.codecollab.app;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +17,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 
-import io.socket.client.IO;
-import io.socket.client.Socket;
+
+import io.socket.engineio.client.transports.WebSocket;
+
 
 @Controller
 public class Main {
 
 	ArrayList<Integer> usedPins = new ArrayList<Integer>();
 
-	Socket socket = IO.socket(URI.create("http://localhost:8080"));
+
+	WebSocket socket;
 
 	// Join Session Page
 	// @pram sessionId
@@ -38,11 +40,6 @@ public class Main {
 	})
 	public String index(@RequestParam(required = false, name = "pincode") String pincode, HttpServletRequest request,
 			Model model) {
-		if (usedPins.contains(Integer.parseInt(pincode))) {
-			System.out.println("Pin found!");
-		} else {
-			System.out.println("Pin not found!");
-		}
 		return "joinSession";
 	}
 
@@ -73,14 +70,14 @@ public class Main {
 
 	@RequestMapping(value = "/close")
 	public String close(@CookieValue(value = "sessionPin") String sessionPin, HttpServletResponse response) {
-		if (usedPins.size() >= 1){
+		if (usedPins.size() >= 1) {
 			usedPins.remove(0);
 		}
 
 		Cookie cookie = new Cookie("sessionPin", null);
 		cookie.setPath("/");
 		cookie.setHttpOnly(true);
-		cookie.setMaxAge(0); 
+		cookie.setMaxAge(0);
 		response.addCookie(cookie);
 
 		return "redirect:/";

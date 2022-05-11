@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/index.css}" />
     <title>Home</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"
+        integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
 </head>
 
 
@@ -16,5 +20,39 @@
     <br>
     <a href="/create" class="btn btn-primary btn-block btn-large">Create Session</a>
 </body>
+
+
+<script>
+
+   
+    var ws;
+    function connect() {
+        if ("WebSocket" in window) {
+            console.log("WebSocket is supported by your Browser!");
+        }
+        ws = new WebSocket('ws://localhost:8080/user');
+
+        ws.onmessage = function (data) {
+            showGreeting(data.data);
+        }
+    }
+
+    function disconnect() {
+        if (ws != null) {
+            ws.close();
+        }
+        console.log("Disconnected");
+    }
+
+    function sendName() {
+        ws.send($("#name").val());
+    }
+
+    function showGreeting(message) {
+        $("#greetings").append(" " + message + "");
+    }
+
+
+</script>
 
 </html>
