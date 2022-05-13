@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/session.css}" />
+    <link rel="stylesheet" th:href="@{/styles/session.css}" />
+    <script th:src="@{/session.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"
         integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://codemirror.net/lib/codemirror.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.0/mode/css/css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.0/addon/selection/active-line.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.css"
-        integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -58,6 +57,22 @@
         </div>
     </div>
 
+    <form id="messageForm" name="messageForm">
+        <div class="form-group">
+            <div class="input-group clearfix">
+                <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
+                    class="form-control" />
+                <button type="submit" class="primary">Send</button>
+            </div>
+        </div>
+    </form>
+
+    <form id="usernameForm" name="usernameForm">
+        <div class="form-group">
+            <button type="submit" class="accent username-submit">Start Chatting</button>
+        </div>
+    </form>
+
 
     <div id="editor">
         public class Main{
@@ -72,55 +87,7 @@
 
 
     <script>
-
-
-        var sock = new SockJS('localhost:8080/session');
-        sock.onopen = function () {
-            console.log('open');
-            sock.send('test');
-        };
-
-        sock.onmessage = function (e) {
-            console.log('message', e.data);
-            sock.close();
-        };
-
-        sock.onclose = function () {
-            console.log('close');
-        };
-
-        var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.session.setMode("ace/mode/java");
-
-        var stop = function () {
-            var image = document.getElementById('image')
-            var stream = video.srcObject;
-            var tracks = stream.getTracks();
-            for (var i = 0; i < tracks.length; i++) {
-                var track = tracks[i];
-                track.stop();
-            }
-            video.srcObject = null;
-            //set the image source to a blank image
-            image.src = "https://suitabletech.com/images/HelpCenter/errors/Lenovo-Camera-Error.JPG";
-        }
-        var start = function () {
-            var video = document.getElementById('video'),
-                vendorUrl = window.URL || window.webkitURL;
-            var image = document.getElementById('image')
-            image.src = "";
-
-            if (navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function (stream) {
-                        video.srcObject = stream;
-                    }).catch(function (error) {
-                        console.log("Something went wrong!");
-                    });
-            }
-        }
-        start();
+       
 
     </script>
 

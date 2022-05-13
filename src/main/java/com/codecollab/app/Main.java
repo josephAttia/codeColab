@@ -1,12 +1,14 @@
 package com.codecollab.app;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 
-
 import io.socket.engineio.client.transports.WebSocket;
-
 
 @Controller
 public class Main {
 
 	ArrayList<Integer> usedPins = new ArrayList<Integer>();
-
 
 	WebSocket socket;
 
@@ -54,17 +53,19 @@ public class Main {
 	public String session(@CookieValue(value = "sessionPin") String sessionPin, HttpServletResponse response,
 			Model model) {
 		model.addAttribute("pin", sessionPin);
-		System.out.println(usedPins);
 		return "session";
 	}
 
 	@RequestMapping(value = "/generatePin", method = { RequestMethod.GET, RequestMethod.POST })
-	public String generatePin(HttpServletResponse response) {
+	public String generatePin(HttpServletResponse response) throws FileNotFoundException, UnsupportedEncodingException {
 		int sessionNumber = generateSecureNumber();
 		Cookie cookie = new Cookie("sessionPin", Integer.toString(sessionNumber));
 		response.addCookie(cookie);
 		usedPins.add(sessionNumber);
-		System.out.println(usedPins);
+		PrintWriter writer = new PrintWriter("sessionManagment.txt", "UTF-8");
+		writer.println("Session Pin: " + sessionNumber);
+		writer.println("1");
+		writer.close();
 		return "redirect:/session/";
 	}
 
@@ -84,9 +85,13 @@ public class Main {
 	}
 
 	@GetMapping("/create")
-	public String create(HttpServletRequest request) {
+	public String create(HttpServletRequest request) throws FileNotFoundException, UnsupportedEncodingException {
 		Cookie currentSession = WebUtils.getCookie(request, "sessionPin");
 		if (currentSession != null) {
+			PrintWriter writer = new PrintWriter("sessionManagment.txt", "UTF-8");
+			writer.println("Session Pin: " + currentSession.getValue());
+			writer.println("1");
+			writer.close();
 			return "redirect:/session/";
 		}
 		return "create";
