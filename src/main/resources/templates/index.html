@@ -1,3 +1,5 @@
+<link rel="stylesheet" th:href="@{/styles/index.css}" />
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/index.css}" />
+   
     <title>Home</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"
         integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA=="
@@ -15,10 +17,13 @@
 
 
 <body>
-    <h1>Code Collab</h1>
-    <a href="/joinSession" class="btn btn-primary btn-block btn-large">Join Session</a>
-    <br>
-    <a href="/create" class="btn btn-primary btn-block btn-large">Create Session</a>
+    <nav class="main-nav">
+        <h1>Code Collab</h1>
+	<ul>
+		<li><a class="signin" href="/joinSession">Join Session</a></li>
+		<li><a class="signup" href="/generatePin">Create</a></li>
+	</ul>
+</nav>
 </body>
 
 

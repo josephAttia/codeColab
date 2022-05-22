@@ -4,42 +4,47 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.codecollab.app.Model.SessionModel;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
-
-import io.socket.engineio.client.transports.WebSocket;
 
 @Controller
 public class Main {
 
 	ArrayList<Integer> usedPins = new ArrayList<Integer>();
+	HashMap<Integer, Boolean> sessionManagment = new HashMap<Integer, Boolean>();
 
-	WebSocket socket;
-
-	// Join Session Page
-	// @pram sessionId
-	// @pram GET request
-	// @pram POST request
-	// @return joinSession.html
-	@RequestMapping(value = "/joinSession", method = {
-			RequestMethod.GET,
-			RequestMethod.POST
-	})
-	public String index(@RequestParam(required = false, name = "pincode") String pincode, HttpServletRequest request,
-			Model model) {
+	@RequestMapping(value = "/joinSession", method = { RequestMethod.GET, RequestMethod.POST })
+	public String index(Model model, HttpServletResponse response) {
+		model.addAttribute("SessionModel", new SessionModel());
+		if (sessionManagment.containsKey(23948)) {
+			Cookie cookie = new Cookie("sessionPin", Integer.toString(23948));
+			response.addCookie(cookie);
+			sessionManagment.put(23948, true);
+			return "redirect:/session";
+		}
 		return "joinSession";
+	}
+
+	@PostMapping("/checkSession")
+	public String greetingSubmit(@ModelAttribute("SessionModel") SessionModel sessionModel) {
+		System.out.print(sessionModel.getId());
+		return "session";
 	}
 
 	// Home page
@@ -62,10 +67,7 @@ public class Main {
 		Cookie cookie = new Cookie("sessionPin", Integer.toString(sessionNumber));
 		response.addCookie(cookie);
 		usedPins.add(sessionNumber);
-		PrintWriter writer = new PrintWriter("sessionManagment.txt", "UTF-8");
-		writer.println("Session Pin: " + sessionNumber);
-		writer.println("1");
-		writer.close();
+		sessionManagment.put(sessionNumber, false);
 		return "redirect:/session/";
 	}
 
@@ -77,7 +79,6 @@ public class Main {
 
 		Cookie cookie = new Cookie("sessionPin", null);
 		cookie.setPath("/");
-		cookie.setHttpOnly(true);
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
 
@@ -88,13 +89,15 @@ public class Main {
 	public String create(HttpServletRequest request) throws FileNotFoundException, UnsupportedEncodingException {
 		Cookie currentSession = WebUtils.getCookie(request, "sessionPin");
 		if (currentSession != null) {
-			PrintWriter writer = new PrintWriter("sessionManagment.txt", "UTF-8");
-			writer.println("Session Pin: " + currentSession.getValue());
-			writer.println("1");
-			writer.close();
 			return "redirect:/session/";
 		}
 		return "create";
+	}
+
+	@GetMapping("/checkSession")
+	public String greetingForm(Model model) {
+		model.addAttribute("sessionRequest", new SessionModel());
+		return "greeting";
 	}
 
 	public int generateSecureNumber() {

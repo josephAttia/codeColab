@@ -1,7 +1,7 @@
 package com.codecollab.app.Controller;
 
 import com.codecollab.app.Model.ChatMessage;
-import com.codecollab.app.Model.ChatMessage.MessageType;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;

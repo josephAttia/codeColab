@@ -1,8 +1,4 @@
-video {
-	/* add border */
-	border: 1px solid #000;
-	width: 25%;
-}
+@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap');
 
 .footer {
 	position: fixed;
@@ -21,16 +17,70 @@ video {
 }
 
 
-#editor {
+ #editor {
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
+	z-index: 0;
 	width: 45%;
+	/* width: 45%;
 	margin-left: 845px;
-	height: 79%;
+	height: 90%;
+	margin-top: 68px; */
+} 
+#text_box{
+
+	background:none;
+	border: none;
+	color: #000;
+	padding: 20px;
+	resize: none;
+	float: right;
+
+    width: 369px;
+    height: 548px;
+	/* add a glow */
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	
 }
+
+#messageForm{
+	float: right;
+    margin-top: 560px;
+    margin-right: -262px;
+}
+
+
+  /* HEADER */
+  .header {
+    position: inherit;
+    left: 0;
+    right: 0;
+    height: 66px;
+
+    line-height: 66px;
+    color: #fff;
+
+    background-color: #d83d3d;
+  }
+
+  .header > h1{
+	font-family: 'Odibee Sans', cursive;
+	padding: 7px;
+	text-align: center;
+	margin-left: 700px;
+  }
+
+  .header__logo {
+    font-weight: 700;
+    padding: 0 25px;
+    float: left;
+  }
+
 
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
 
@@ -38,218 +88,71 @@ html {
 	height: 100%;
 }
 
-.cm-s-berry-dark.CodeMirror {
-	font-size: 14px;
-	background: #272757;
-	box-shadow: 2px 2px 10px #111139 inset;
-	font-family: 'Source Code Pro', monospace;
-	color: #aaa;
-}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+  }
+  
+  body {
+	background: #fff;
+  }
 
-.cm-s-berry-dark .CodeMirror-cursor {
-	height: 17px;
-	margin-top: 4px;
-}
 
-.cm-s-berry-dark .CodeMirror-gutters {
-	background: #343470;
-	border-right: 1px solid #343470;
-	box-shadow: 2px 0px 10px #111139;
-	margin-left: -1px;
-}
-
-.cm-s-berry-dark .CodeMirror-sizer {
-	padding-top: 5px;
-	margin-left: 31px;
-	margin-bottom: -17px;
-	border-right-width: 13px;
-	min-height: 29px;
-	min-width: 7px;
-	padding-right: 20px;
-	padding-bottom: 0px;
-	padding-left: 5px;
-}
-
-.cm-s-berry-dark .CodeMirror-line {
-	line-height: 1.7;
-}
-
-.cm-s-berry-dark .CodeMirror-linenumber {
-	color: #777aaa;
-	left: 0px;
-	width: 24px;
-	margin-left: -5px;
-}
-
-.cm-s-berry-dark .CodeMirror-linenumbers {
-	width: 31px;
-}
-
-.cm-s-berry-dark .cm-qualifier {
-	color: #75BFFF;
-}
-
-.cm-s-berry-dark .cm-property {
-	color: #86DE74;
-}
-
-.cm-s-berry-dark .cm-punctuation,
-.cm-unit,
-.cm-negative {
-	color: #e09142;
-}
-
-.cm-s-berry-dark .cm-string {
-	color: #6B89FF;
-}
-
-.cm-s-berry-dark .cm-positive {
-	color: #6a51e6;
-}
-
-.cm-s-berry-dark .cm-def {
-	color: #ddd;
-}
-
-.cm-s-berry-dark .cm-variable {
-	/* 	color: #ccc !important; */
-	color: #ddd;
-}
-
-.cm-s-berry-dark .cm-variable-2,
-.cm-s-berry-dark .cm-variable-3,
-.cm-s-berry-dark .cm-url {
-	color: #6a51e6;
-}
-
-.cm-s-berry-dark .cm-tag {
-	color: #75BFFF;
-}
-
-.cm-s-berry-dark .cm-bracket {
-	color: #75BFFF
-}
-
-.cm-s-berry-dark .cm-comment {
-	color: #777aaa;
-}
-
-.cm-s-berry-dark .cm-atom,
-.cm-s-berry-dark .cm-number {
-	color: #6B89FF;
-}
-
-.cm-s-berry-dark .cm-keyword,
-.cm-s-berry-dark .cm-operator,
-.cm-s-berry-dark .cm-attribute {
-	color: #FF7DE9;
-}
-
-.cm-s-berry-dark .CodeMirror-cursor {
-	border-left: 1px solid #eee;
-}
-
-.cm-s-berry-dark .CodeMirror-selectedtext,
-.cm-s-berry-dark .CodeMirror-selected,
-.cm-s-berry-dark .CodeMirror-focused .CodeMirror-selectedtext,
-.cm-s-berry-dark .cm-s-berry-dark .CodeMirror-focused .CodeMirror-selected {
-	background: rgba(255, 74, 174, 0.1);
-}
-
-/* .CodeMirror-selected {
-	background: rgba(200,200,200,0.1) !important;
-} */
-.cm-s-berry-dark .CodeMirror-activeline-background {
+ .btn {
+	overflow: visible;
+	margin: 0;
+	padding: 0;
+	border: 0;
 	background: transparent;
+	font: inherit;
+	line-height: normal;
+	cursor: pointer;
+	-moz-user-select: text;
+	display: block;
+	text-decoration: none;
+	text-transform: uppercase;
+	padding: 16px 36px 22px;
+	background-color: #fff;
+	color: #666;
+	border: 2px solid #666;
+	border-radius: 6px;
+	margin-bottom: 16px;
+	transition: all 0.5s ease;
 }
-
-.cm-s-berry-dark .CodeMirror-focused .CodeMirror-activeline-background {
-	background: rgba(150, 70, 255, 0.1);
+.btn:-moz-focus-inner {
+	padding: 0;
+	border: 0;
 }
-
-.cm-s-berry-dark .CodeMirror-matchingbracket {
-	color: inherit;
+.btn--stripe {
+	overflow: hidden;
+	position: relative;
 }
-
-.cm-s-berry-dark .CodeMirror-focused .CodeMirror-matchingbracket,
-.cm-s-berry-dark .CodeMirror-focused .CodeMirror-matchingtag.cm-tag {
-	background: rgba(255, 255, 255, 0.2) !important;
-	border-radius: 2px;
-	padding-bottom: 3px;
+a{
+	text-decoration: none;
 }
-
-.cm-s-berry-dark .CodeMirror-focused .CodeMirror-matchingtag.cm-tag {
-	padding-bottom: 1px;
-}
-
-.cm-s-berry-dark .CodeMirror-matchingtag,
-.cm-s-berry-dark .CodeMirror-matchingtag.cm-bracket {
-	background: transparent;
-}
-
-.cm-s-berry-dark .CodeMirror-focused .CodeMirror-matchingtag.cm-bracket {
-	background: transparent;
-}
-
-.cm-s-berry-dark .cm-searching {
-	/* 	color: #eee !important; */
-	background-color: rgba(0, 0, 0, 0.8);
-	border-radius: 3px;
-	padding: 0 5px;
-}
-
-
-/****************
-EDITOR SCROLL BAR
-****************/
-.CodeMirror-scrollbar-filler {
-	background: transparent;
-}
-
-.CodeMirror-vscrollbar-filler,
-.CodeMirror-hscrollbar-filler {
+.btn--stripe:after {
+	content: '';
+	display: block;
+	height: 7px;
+	width: 100%;
+	background-image: repeating-linear-gradient(45deg, #666, #666 1px, transparent 2px, transparent 5px);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	border-top: 1px solid #666;
 	position: absolute;
+	left: 0;
 	bottom: 0;
-	right: 0;
-	background: transparent;
-	border-radius: 0 0 5px 0;
-	z-index: 2;
+	background-size: 7px 7px;
 }
-
-.CodeMirror-vscrollbar-filler {
-	width: 10px;
-	top: 70px;
+.btn--stripe:hover {
+	background-color: #666;
+	color: #fff;
+	border-color: #000;
 }
-
-.CodeMirror-hscrollbar-filler {
-	left: 30px;
-	height: 10px;
+.btn--stripe:hover:after {
+	background-image: repeating-linear-gradient(45deg, #fff, #fff 1px, transparent 2px, transparent 5px);
+	border-top: 1px solid #000;
+	animation: stripe-slide 12s infinite linear forwards;
 }
-
-/* width */
-.CodeMirror-vscrollbar::-webkit-scrollbar {
-	width: 6px !important;
-}
-
-.CodeMirror-hscrollbar::-webkit-scrollbar {
-	height: 6px !important;
-}
-
-/* Track */
-.CodeMirror-vscrollbar::-webkit-scrollbar-track,
-.CodeMirror-hscrollbar::-webkit-scrollbar-track {
-	background: transparent !important;
-}
-
-/* Handle */
-.CodeMirror-vscrollbar::-webkit-scrollbar-thumb,
-.CodeMirror-hscrollbar::-webkit-scrollbar-thumb {
-	background: #111139 !important;
-	border-radius: 3px;
-}
-
-/* Handle on hover */
-.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:hover,
-.CodeMirror-hscrollbar::-webkit-scrollbar-thumb:hover {
-	background: #11111f !important;
-}
+  
