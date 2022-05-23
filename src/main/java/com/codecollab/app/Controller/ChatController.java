@@ -1,7 +1,7 @@
 package com.codecollab.app.Controller;
 
 import com.codecollab.app.Model.ChatMessage;
-import com.codecollab.app.Model.VideoStream;
+
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
