@@ -8,7 +8,7 @@ var editor = ace.edit("editor");
 var username = null;
 
 //on page load connect
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     connect();
     username = prompt('Enter your name:');
 });
@@ -33,6 +33,16 @@ function onConnected() {
 function sendMessage(event) {
 
     var messageContent = messageInput.value.trim();
+
+    var filterWords = ["fool", "dumb", "couch potato"];
+    var rgx = new RegExp(filterWords.join("|"), "gi");
+
+    function wordFilter(str) {
+        return str.replace(rgx, "****");
+    }
+
+    messageContent = wordFilter(messageContent);
+
     if (messageContent && stompClient) {
         var chatMessage = {
             sender: username,
@@ -85,7 +95,7 @@ function onCodeReceived(payload) {
 messageForm.addEventListener('submit', sendMessage, true)
 
 // add key listener to whole document
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     //if ctrl and enter are pressed call updatecode 
     if (event.ctrlKey && event.keyCode == 13) {
         updateCode();
