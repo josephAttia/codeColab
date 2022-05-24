@@ -11,13 +11,12 @@
 }
 
 .CodeMirror {
-	/* make this all the way to the right */
 	float: right;
 	width: 50%;
 }
 
 
- #editor {
+#editor {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -29,57 +28,58 @@
 	margin-left: 845px;
 	height: 90%;
 	margin-top: 68px; */
-} 
-#text_box{
+}
 
-	background:none;
+#text_box {
+
+	background: none;
 	border: none;
 	color: #000;
 	padding: 20px;
 	resize: none;
 	float: right;
 
-    width: 369px;
-    height: 548px;
+	width: 369px;
+	height: 548px;
 	/* add a glow */
 	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-	
+
 }
 
-#messageForm{
+#messageForm {
 	float: right;
-    margin-top: 560px;
-    margin-right: -262px;
+	margin-top: 560px;
+	margin-right: -262px;
 }
 
 
-  /* HEADER */
-  .header {
-    position: inherit;
-    left: 0;
-    right: 0;
-    height: 66px;
+/* HEADER */
+.header {
+	position: inherit;
+	left: 0;
+	right: 0;
+	height: 66px;
 
-    line-height: 66px;
-    color: #fff;
+	line-height: 66px;
+	color: #fff;
 
-    background-color: #d83d3d;
-  }
+	background-color: #d83d3d;
+}
 
-  .header > h1{
+.header>h1 {
 	font-family: 'Odibee Sans', cursive;
 	padding: 7px;
 	text-align: center;
 	margin-left: 700px;
-  }
+}
 
-  .header__logo {
-    font-weight: 700;
-    padding: 0 25px;
-    float: left;
-  }
+.header__logo {
+	font-weight: 700;
+	padding: 0 25px;
+	float: left;
+}
 
 
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
@@ -92,14 +92,14 @@ html {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
 	background: #fff;
-  }
+}
 
 
- .btn {
+.btn {
 	overflow: visible;
 	margin: 0;
 	padding: 0;
@@ -120,17 +120,21 @@ html {
 	margin-bottom: 16px;
 	transition: all 0.5s ease;
 }
+
 .btn:-moz-focus-inner {
 	padding: 0;
 	border: 0;
 }
+
 .btn--stripe {
 	overflow: hidden;
 	position: relative;
 }
-a{
+
+a {
 	text-decoration: none;
 }
+
 .btn--stripe:after {
 	content: '';
 	display: block;
@@ -145,14 +149,15 @@ a{
 	bottom: 0;
 	background-size: 7px 7px;
 }
+
 .btn--stripe:hover {
 	background-color: #666;
 	color: #fff;
 	border-color: #000;
 }
+
 .btn--stripe:hover:after {
 	background-image: repeating-linear-gradient(45deg, #fff, #fff 1px, transparent 2px, transparent 5px);
 	border-top: 1px solid #000;
 	animation: stripe-slide 12s infinite linear forwards;
 }
-  
